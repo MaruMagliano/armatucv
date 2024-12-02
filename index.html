@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questions and Answers</title>
+    <title>Arma tu CV</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-    <h1>Questions and Answers</h1>
+    <h1>Que escribir cuando no tenés experiencia</h1>
     <div id="qa-container"></div>
 
     <script>
@@ -98,7 +98,7 @@
             answer.className = 'answer';
             answer.innerHTML = `
                 <p>${item.answer}</p>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn">Copiar</button>
             `;
             container.appendChild(answer);
 
@@ -113,9 +113,9 @@
             const copyButton = answer.querySelector('.copy-btn');
             copyButton.addEventListener('click', () => {
                 navigator.clipboard.writeText(item.answer).then(() => {
-                    alert('Copied to clipboard!');
+                    alert('Copiado al portapapeles! Ahora lo podés pegar en donde quieras');
                 }).catch(err => {
-                    alert('Failed to copy: ' + err);
+                    alert('Fallo al copiar: ' + err);
                 });
             });
         });
