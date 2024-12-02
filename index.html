@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arma tu CV</title>
+    <title>Questions and Answers</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,6 +29,7 @@
             padding: 10px;
             background-color: #e9ecef;
             border-radius: 5px;
+            position: relative;
         }
         .arrow {
             transform: rotate(0);
@@ -50,11 +51,11 @@
         }
         .copy-btn:hover {
             background-color: #0056b3;
-        }        
+        }
     </style>
 </head>
 <body>
-    <h1>Arma tu CV</h1>
+    <h1>Questions and Answers</h1>
     <div id="qa-container"></div>
 
     <script>
@@ -92,7 +93,7 @@
             `;
             container.appendChild(question);
 
-// Create answer element
+            // Create answer element
             const answer = document.createElement('div');
             answer.className = 'answer';
             answer.innerHTML = `
@@ -116,8 +117,8 @@
                 }).catch(err => {
                     alert('Failed to copy: ' + err);
                 });
-            });        });
+            });
+        });
     </script>
 </body>
 </html>
-
