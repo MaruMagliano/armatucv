@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions and Answers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .question {
+            cursor: pointer;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .answer {
+            display: none;
+            margin: 5px 0 15px 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .arrow {
+            transform: rotate(0);
+            transition: transform 0.3s ease;
+        }
+        .arrow.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <h1>Questions and Answers</h1>
+    <div id="qa-container"></div>
+
+    <script>
+        // JSON data containing questions and answers
+        const data = [
+            {
+                "question": "What is HTML?",
+                "answer": "HTML stands for HyperText Markup Language. It is used to structure content on the web."
+            },
+            {
+                "question": "What is CSS?",
+                "answer": "CSS stands for Cascading Style Sheets. It is used to style the appearance of web pages."
+            },
+            {
+                "question": "What is JavaScript?",
+                "answer": "JavaScript is a programming language that allows you to create dynamic and interactive web content."
+            }
+        ];
+
+        // Get the container element
+        const container = document.getElementById('qa-container');
+
+        // Create questions and answers dynamically
+        data.forEach((item, index) => {
+            // Create question element
+            const question = document.createElement('div');
+            question.className = 'question';
+            question.innerHTML = `
+                <span>${item.question}</span>
+                <span class="arrow">&#9660;</span>
+            `;
+            container.appendChild(question);
+
+            // Create answer element
+            const answer = document.createElement('div');
+            answer.className = 'answer';
+            answer.textContent = item.answer;
+            container.appendChild(answer);
+
+            // Add event listener for toggling
+            question.addEventListener('click', () => {
+                const isVisible = answer.style.display === 'block';
+                answer.style.display = isVisible ? 'none' : 'block';
+                question.querySelector('.arrow').classList.toggle('open', !isVisible);
+            });
+        });
+    </script>
+</body>
+</html>
+
