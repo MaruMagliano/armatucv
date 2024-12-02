@@ -37,6 +37,20 @@
         .arrow.open {
             transform: rotate(180deg);
         }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }        
     </style>
 </head>
 <body>
@@ -51,9 +65,17 @@
                 "answer": "Realicé trabajos informales que me permitieron adquirir experiencia y desarrollar habilidades como la responsabilidad, adaptabilidad y manejo del tiempo."
             },
             {
-                "question": "¿Has participado en talleres o cursos de arte, ciencia o tecnología?",
+                "question": "¿Has participado en talleres o cursos?",
                 "answer": "Asistí a talleres, donde desarrollé mi creatividad, habilidades técnicas y apertura a nuevas ideas."
-            }
+            },
+            {
+                "question": "¿Cuidaste niños o personas en general, aunque sea ocasionalmente?",
+                "answer": "Brindé apoyo en el cuidado de personas, fortaleciendo mi capacidad de responsabilidad, paciencia y empatía."
+            },
+            {
+                "question": "¿Haces algún deporte individual o de equipo?",
+                "answer": "Formé parte de un equipo deportivo, desarrollando habilidades como la disciplina, el trabajo en equipo y el compromiso."
+            }            
         ];
 
         // Get the container element
@@ -70,10 +92,13 @@
             `;
             container.appendChild(question);
 
-            // Create answer element
+// Create answer element
             const answer = document.createElement('div');
             answer.className = 'answer';
-            answer.textContent = item.answer;
+            answer.innerHTML = `
+                <p>${item.answer}</p>
+                <button class="copy-btn">Copy</button>
+            `;
             container.appendChild(answer);
 
             // Add event listener for toggling
@@ -82,7 +107,16 @@
                 answer.style.display = isVisible ? 'none' : 'block';
                 question.querySelector('.arrow').classList.toggle('open', !isVisible);
             });
-        });
+
+            // Add event listener for copy button
+            const copyButton = answer.querySelector('.copy-btn');
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(item.answer).then(() => {
+                    alert('Copied to clipboard!');
+                }).catch(err => {
+                    alert('Failed to copy: ' + err);
+                });
+            });        });
     </script>
 </body>
 </html>
