@@ -86,17 +86,17 @@
             {
                 "question": "¿Tuviste algún trabajo informal, ya sea que te hayan pagado o no?",
                 "answer": "Cuento con experiencia en trabajos informales que me han permitido desarrollar habilidades clave como responsabilidad, adaptación, compromiso, y capacidad para trabajar de manera autónoma. Estas experiencias me han preparado para asumir desafíos en entornos laborales variados y para aprender rápidamente nuevas funciones.",
-                "keywords": "futbol,basket,handball,hockey"
+                "keywords": "mcdonalds"
             },
             {
                 "question": "¿Participaste en talleres o cursos?",
                 "answer": "He participado en diversos talleres y cursos que me han permitido desarrollar habilidades como compromiso, trabajo en equipo, comunicación efectiva y aprendizaje constante. Estas experiencias me han brindado herramientas para adaptarme a diferentes contextos y aportar de manera proactiva en el ámbito laboral",
-                "keywords": "futbol,basket,handball,hockey"
+                "keywords": "informatica,computacion"
             },
             {
                 "question": "¿Cuidaste niños o personas en general, aunque sea ocasionalmente?",
                 "answer": "He adquirido experiencia a través del cuidado de niños y personas, desarrollando habilidades como responsabilidad, paciencia, empatía y organización. Estas actividades me han permitido fortalecer mi capacidad para adaptarme a diferentes necesidades y asumir compromisos con dedicación y confianza.",
-                "keywords": "futbol,basket,handball,hockey"
+                "keywords": ""
             },
             {
                 "question": "¿Haces algún deporte individual o de equipo?",
@@ -113,7 +113,8 @@
         function renderQuestions(filter = '') {
             container.innerHTML = ''; // Clear the container
             data.forEach((item, index) => {
-                if (item.question.toLowerCase().includes(filter.toLowerCase()) or item.keywords.toLowerCase().includes(filter.toLowerCase())) {
+                if (item.question.toLowerCase().includes(filter.toLowerCase()) ||
+                    item.keywords.toLowerCase().includes(filter.toLowerCase())) {
                     // Create question element
                     const question = document.createElement('div');
                     question.className = 'question';
