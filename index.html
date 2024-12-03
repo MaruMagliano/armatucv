@@ -12,6 +12,24 @@
             background-color: #f9f9f9;
             color: #333;
         }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
         .question {
             cursor: pointer;
             margin: 10px 0;
@@ -55,7 +73,11 @@
     </style>
 </head>
 <body>
-    <h1>¿Qué escribir cuando no tenés experiencia?</h1>
+    <header>
+        <img src="https://via.placeholder.com/600x200" alt="Imagen encabezado">
+        <h1>¿Qué escribir cuando no tenés experiencia?</h1>
+        <input type="text" id="search-box" placeholder="Busca una pregunta...">
+    </header>
     <div id="qa-container"></div>
 
     <script>
@@ -76,49 +98,63 @@
             {
                 "question": "¿Haces algún deporte individual o de equipo?",
                 "answer": "Formé parte de un equipo deportivo. Practico deporte y eso me ha ayudado a aprender cosas importantes como trabajar en equipo, tener disciplina y nunca rendirme. También me enseña a organizarme mejor con mi tiempo y a dar lo mejor de mí en lo que hago."
-            }            
+            }
         ];
 
-        // Get the container element
+        // Get elements
         const container = document.getElementById('qa-container');
+        const searchBox = document.getElementById('search-box');
 
-        // Create questions and answers dynamically
-        data.forEach((item, index) => {
-            // Create question element
-            const question = document.createElement('div');
-            question.className = 'question';
-            question.innerHTML = `
-                <span>${item.question}</span>
-                <span class="arrow">&#9660;</span>
-            `;
-            container.appendChild(question);
+        // Function to render questions and answers
+        function renderQuestions(filter = '') {
+            container.innerHTML = ''; // Clear the container
+            data.forEach((item, index) => {
+                if (item.question.toLowerCase().includes(filter.toLowerCase())) {
+                    // Create question element
+                    const question = document.createElement('div');
+                    question.className = 'question';
+                    question.innerHTML = `
+                        <span>${item.question}</span>
+                        <span class="arrow">&#9660;</span>
+                    `;
+                    container.appendChild(question);
 
-            // Create answer element
-            const answer = document.createElement('div');
-            answer.className = 'answer';
-            answer.innerHTML = `
-                <p>${item.answer}</p>
-                <button class="copy-btn">Copiar</button>
-            `;
-            container.appendChild(answer);
+                    // Create answer element
+                    const answer = document.createElement('div');
+                    answer.className = 'answer';
+                    answer.innerHTML = `
+                        <p>${item.answer}</p>
+                        <button class="copy-btn">Copiar</button>
+                    `;
+                    container.appendChild(answer);
 
-            // Add event listener for toggling
-            question.addEventListener('click', () => {
-                const isVisible = answer.style.display === 'block';
-                answer.style.display = isVisible ? 'none' : 'block';
-                question.querySelector('.arrow').classList.toggle('open', !isVisible);
+                    // Add event listener for toggling
+                    question.addEventListener('click', () => {
+                        const isVisible = answer.style.display === 'block';
+                        answer.style.display = isVisible ? 'none' : 'block';
+                        question.querySelector('.arrow').classList.toggle('open', !isVisible);
+                    });
+
+                    // Add event listener for copy button
+                    const copyButton = answer.querySelector('.copy-btn');
+                    copyButton.addEventListener('click', () => {
+                        navigator.clipboard.writeText(item.answer).then(() => {
+                            alert('Copiado al portapapeles! Ahora lo podés pegar en donde quieras');
+                        }).catch(err => {
+                            alert('Fallo al copiar: ' + err);
+                        });
+                    });
+                }
             });
+        }
 
-            // Add event listener for copy button
-            const copyButton = answer.querySelector('.copy-btn');
-            copyButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(item.answer).then(() => {
-                    alert('Copiado al portapapeles! Ahora lo podés pegar en donde quieras');
-                }).catch(err => {
-                    alert('Fallo al copiar: ' + err);
-                });
-            });
+        // Filter questions on search input
+        searchBox.addEventListener('input', () => {
+            renderQuestions(searchBox.value);
         });
+
+        // Initial render
+        renderQuestions();
     </script>
 </body>
 </html>
